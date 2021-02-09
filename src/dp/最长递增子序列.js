@@ -10,10 +10,14 @@ var lengthOfLIS = function(nums) {
     let dp = Array(nums.length).fill(1)
     for (let i = 0; i < nums.length; i++) {
         let j = i - 1
-        while (j >= 0 && nums[j] > nums[i])
+        let maxj = 0
+        while (j >= 0){
+            if(nums[j] < nums[i]){
+                maxj = Math.max(maxj,dp[j])
+            }
             j--
-            if (j >= 0)
-                dp[i] = dp[j] + 1
+        }
+        dp[i] = maxj + dp[i]  
         res = Math.max(res, dp[i])
     }
     return res
